@@ -1,5 +1,7 @@
 name: Misc - Pull Request to main branch
 
+permissions:
+  pull-requests: write
 on:
   pull_request:
     branches:
