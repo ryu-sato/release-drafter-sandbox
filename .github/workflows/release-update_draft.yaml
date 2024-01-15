@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      RELEASE_VERSION: ${{ steps.package-json.outputs.packageVersion }}
+      CURRENT_VERSION: ${{ steps.package-json.outputs.packageVersion }}
       RELEASE_DRAFT_BODY: ${{ steps.release-drafter.outputs.body }}
 
     steps:
@@ -42,17 +42,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    # See: https://github.com/bakunyo/git-pr-release-action/issues/15, https://github.com/samunohito/SimpleVolumeMixer/commit/2059044c71236509466cf9b1bb2d56d515274938
-    - name: Create/Update Pull Request
-      uses: bakunyo/git-pr-release-action@281e1fe424fac01f3992542266805e4202a22fe0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GIT_PR_RELEASE_BRANCH_PRODUCTION: stable
-        GIT_PR_RELEASE_BRANCH_STAGING: main
-        GIT_PR_RELEASE_TEMPLATE: .github/git-pr-release-template.erb
-        GIT_PR_RELEASE_TITLE: Release v${{ needs.update-release-draft.outputs.RELEASE_VERSION }}
-        GIT_PR_RELEASE_BODY: ${{ needs.update-release-draft.outputs.RELEASE_DRAFT_BODY }}
+      - name: Get release version
+        id: release-version
+        run: |
+          RELEASE_VERSION=`npx semver -i patch ${{ needs.update-release-draft.outputs.CURRENT_VERSION }}`
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Get base branch
+        id: base-branch
+        run: |
+          GITHUB_REF_NAME=${{ github.ref_name }}
+          WILDCARD_VERSION=${GITHUB_REF_NAME#dev/}
+          # set "release/current" or "release/X.X.x" to BASE_BRANCH
+          BASE_BRANCH=release/${{ github.ref_name == 'main' && 'current' || '$WILDCARD_VERSION' }}
+          echo "BASE_BRANCH=$BASE_BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Create/Update Pull Request
+        uses: bakunyo/git-pr-release-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_PR_RELEASE_BRANCH_PRODUCTION: ${{ steps.base-branch.outputs.BASE_BRANCH }}
+          GIT_PR_RELEASE_BRANCH_STAGING: ${{ github.ref_name }}
+          GIT_PR_RELEASE_TEMPLATE: .github/git-pr-release-template.erb
+          GIT_PR_RELEASE_TITLE: Release v${{ steps.release-version.outputs.RELEASE_VERSION }}
+          GIT_PR_RELEASE_BODY: ${{ needs.update-release-draft.outputs.RELEASE_DRAFT_BODY }}
