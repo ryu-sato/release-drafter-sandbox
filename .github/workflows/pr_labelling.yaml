@@ -1,4 +1,4 @@
-name: Pull Request - Auto labelling
+name: Pull Request - Labelling
 
 # repository Settings > Actions > General : Workflow permissions
 permissions:

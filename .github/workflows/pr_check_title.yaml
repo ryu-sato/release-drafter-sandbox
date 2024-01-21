@@ -1,4 +1,4 @@
-name: Misc - Pull Request to main branch
+name: Pull Request - Check title
 
 on:
   pull_request:
