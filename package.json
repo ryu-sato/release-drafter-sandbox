@@ -1,6 +1,6 @@
 {
     "name": "growi-plugin-datatables",
-    "version": "1.0.0",
+    "version": "1.0.0-RC",
     "description": "release-drafter sandbox",
     "type": "module",
     "repository": {
