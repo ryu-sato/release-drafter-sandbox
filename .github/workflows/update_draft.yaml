@@ -1,4 +1,4 @@
-name: Release - Update draft
+name: Update draft
 
 # repository Settings > Actions > General : Workflow permissions
 permissions:
