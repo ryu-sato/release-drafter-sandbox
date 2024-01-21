@@ -1,5 +1,6 @@
 name: Misc - Pull Request to main branch
 
+# repository Settings > Actions > General : Workflow permissions
 permissions:
   pull-requests: write
 on:
