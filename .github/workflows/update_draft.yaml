@@ -35,7 +35,7 @@ jobs:
         name: v${{ steps.package-json.outputs.packageVersion }}
         tag: v${{ steps.package-json.outputs.packageVersion }}
         version: ${{ steps.package-json.outputs.packageVersion }}
-        commitish: ${{ github.ref_name }}
+        commitish: ${{ github.base_ref }}
         disable-autolabeler: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
