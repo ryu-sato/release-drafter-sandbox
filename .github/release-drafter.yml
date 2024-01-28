@@ -1,7 +1,7 @@
 prerelease: true
 
-# # Filter previous releases to consider target_commitish
-# include-pre-releases: true
+# Filter previous releases to consider target_commitish
+include-pre-releases: true
 # filter-by-commitish: true
 
 categories:
