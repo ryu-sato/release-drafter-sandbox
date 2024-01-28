@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.5 - 2024-01-28
+
+### 🐛 Bug Fixes
+
+* fix: Release drafter (#39) @ryu-sato
+
 ## v3.0.4 - 2024-01-28
 
 ### 🐛 Bug Fixes
