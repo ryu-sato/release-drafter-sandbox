@@ -67,6 +67,9 @@ jobs:
 
       - name: Create/Update Pull Request
         uses: bakunyo/git-pr-release-action@master
+        with:
+          # Overwrite everything so that the old content does not remain in the release notes, if the label attached to the PR changes
+          args: --overwrite-description
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_PR_RELEASE_BRANCH_PRODUCTION: ${{ steps.base-branch.outputs.BASE_BRANCH }}
