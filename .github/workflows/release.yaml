@@ -39,7 +39,7 @@ jobs:
         latest-version: v${{ steps.package-json.outputs.packageVersion }}
         release-notes: ${{ github.event.pull_request.body }}
 
-    - name: 'Git commit, tagging and push (commit message: "v1.0.0", tag name: "v1.0.0")'
+    - name: 'Git commit, tagging and push (commit message: "Release v1.0.0", tag name: "v1.0.0")'
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         branch: ${{ github.event.pull_request.base.ref }}
