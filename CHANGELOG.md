@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.1 - 2024-01-28
+
+### 🐛 Bug Fixes
+
+* fix: Workflow name (#23) @ryu-sato
+
 ## v3.0.0 - 2024-01-27
 
 ### BREAKING CHANGES
