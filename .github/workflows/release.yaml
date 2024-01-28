@@ -51,7 +51,7 @@ jobs:
       with:
         body: ${{ github.event.pull_request.body }}
         tag_name: v${{ steps.package-json.outputs.packageVersion }}
-        target_commitish: ${{ github.sha }}
+        target_commitish: ${{ github.head_ref }}
 
     - name: Delete GitHub draft Releases
       uses: hugo19941994/delete-draft-releases@v1.0.1
